@@ -10,7 +10,7 @@ from numpy import argmax
 
 
 # Load your tumor classification model
-cnn_model = tf.keras.models.load_model('Multitasking_app/cnn_tumor_model.h5')
+cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
 
 # Function to perform image classification using CNN
 def classify_image(img, cnn_model):
@@ -45,7 +45,7 @@ def predict_message(input_text):
     
 
 # Load the saved model
-imdb_model = tf.keras.models.load_model('Multitasking_app/lstm_imdb_model.h5')
+imdb_model = tf.keras.models.load_model('lstm_imdb_model.h5')
 top_words = 5000
 max_review_length = 500
 
@@ -66,7 +66,7 @@ def predict_sentiment(review):
 
 
 # Load the saved model
-iris_dnn_model = tf.keras.models.load_model('Multitasking_app/iris_dnn_model.h5')
+iris_dnn_model = tf.keras.models.load_model('iris_dnn_model.h5')
 
 def predict_iris_class(input_data):
     # Make predictions using the loaded model
@@ -82,7 +82,7 @@ def predict_iris_class(input_data):
 
 
 # Load the saved model
-mnist_model = tf.keras.models.load_model('Multitasking_app/mnist_cnn_model.h5')
+mnist_model = tf.keras.models.load_model('mnist_cnn_model.h5')
 
 def predict_digit(file_path):
     # Load the image using PIL
