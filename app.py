@@ -10,7 +10,7 @@ from numpy import argmax
 
 
 # Load your tumor classification model
-cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
+#cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
 
 # Function to perform image classification using CNN
 def classify_image(img, cnn_model):
