@@ -5,6 +5,7 @@ import numpy as np
 from tensorflow.keras.datasets import imdb
 from tensorflow.keras.preprocessing import sequence
 from numpy import argmax
+import pickle
 
 
 
@@ -28,18 +29,26 @@ def classify_image(img, cnn_model):
     
 
 # Load your SMS spam detection model
-#spam_model = tf.keras.models.load_model('Multitasking_app/spammodel')
-tokeniser = tf.keras.preprocessing.text.Tokenizer()
-max_length=100
-def predict_message(input_text):
+spam_model = tf.keras.models.load_model('Multitasking_app/spammodel.h5')
+# Load the saved tokenizer
+with open('Multitasking_app/tokenizer.pickle', 'rb') as handle:
+    tokeniser = pickle.load(handle)
+
+max_length=20
+def predict_message(input_text, tokeniser):
     # Process input text similarly to training data
     encoded_input = tokeniser.texts_to_sequences([input_text])
     padded_input = tf.keras.preprocessing.sequence.pad_sequences(encoded_input, maxlen=max_length, padding='post')
-    prediction = spam_model.predict(padded_input)
-    if prediction > 0.5:
-        return "Spam"
-    else:
-        return "Not spam"
+    # Get the probabilities of being classified as "Spam" for each input
+    predictions = spam_model.predict(padded_input)
+    # Define a threshold (e.g., 0.5) for classification
+    threshold = 0.5
+    # Make the predictions based on the threshold for each input
+    for prediction in predictions:
+        if prediction > threshold:
+            return "Spam"
+        else:
+            return "Not spam"
 
 
     
@@ -127,6 +136,7 @@ def main():
                 # Call the tumor detection function
                 result = classify_image(uploaded_file, cnn_model)
                 st.write("Tumor Detection Result:", result)
+                
 
     elif task == "SMS Spam Detection":
         st.subheader("SMS Spam Detection")
@@ -134,11 +144,12 @@ def main():
             
         if st.button("Predict"):
             if user_input:
-                prediction_result = predict_message(user_input)
+                prediction_result = predict_message(user_input, tokeniser)
                 st.write(f"The message is classified as: {prediction_result}")
             else:
                 st.write("Please enter some text for prediction")
-                
+
+    
     elif task == "IMDb Sentiment Analysis":
         st.subheader("IMDb Sentiment Analysis")
         user_review = st.text_area("Enter a movie review: ")
@@ -149,6 +160,7 @@ def main():
                 st.write(f"The sentiment of the review is: {sentiment_result}")
             else:
                 st.write("Please enter a movie review for sentiment analysis")
+                
                 
     elif task == "Iris Flower Classification-DNN":
         st.subheader("Iris Flower Classification-DNN")
@@ -170,6 +182,7 @@ def main():
             st.subheader("Prediction Results")
             st.write('Predicted probabilities:', probabilities)
             st.write('Predicted class:', predicted_class)
+            
 
     elif task == "Digit Recognition":
         st.subheader("Digit Recognition")
