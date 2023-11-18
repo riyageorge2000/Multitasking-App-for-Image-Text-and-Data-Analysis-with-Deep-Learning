@@ -140,7 +140,7 @@ def main():
 
     elif task == "SMS Spam Detection":
         st.subheader("SMS Spam Detection")
-        user_input = st.text_area("Enter a message to classify as 'ham' or 'spam': ")
+        user_input = st.text_area("Enter a message to classify as 'Spam' or 'Not spam': ")
             
         if st.button("Predict"):
             if user_input:
