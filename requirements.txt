@@ -3,5 +3,4 @@ Pillow
 tensorflow
 numpy
 pickle
-gdown==4.0.2
-
+requests
