@@ -154,7 +154,7 @@ def main():
     st.title("Task Selection..")
 
     # Dropdown for task selection
-    task = st.selectbox("Select Task", ["Tumor Detection", "SMS Spam Detection", "IMDb Sentiment Analysis", "Iris Flower Classification-DNN","Digit Recognition"])
+    task = st.selectbox("Select Task", ["Tumor Detection", "SMS Spam Detection", "IMDb Sentiment Analysis", "Iris Flower Classification-DNN","Digit Recognition","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
 
     if task == "Tumor Detection":
         st.subheader("Tumor Detection")
