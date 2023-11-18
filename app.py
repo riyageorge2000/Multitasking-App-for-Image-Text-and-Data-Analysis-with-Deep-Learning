@@ -14,29 +14,23 @@ from io import BytesIO
 import tempfile
 import h5py
 
-# Function to download the model from Google Drive URL and save as an HDF5 file
-def download_model_from_drive(drive_url, file_path):
-    # Extract the file ID from the URL
+# Function to download the model from Google Drive URL
+def download_model_from_drive(drive_url):
     file_id = drive_url.split('/')[-2]
-    
-    # Create the download URL
     download_url = f"https://drive.google.com/uc?id={file_id}"
-    
-    # Fetch the content from the download URL
     response = requests.get(download_url)
-    
-    # Save the content directly as an HDF5 file
-    with h5py.File(file_path, 'w') as file:
-        file.create_dataset('model', data=response.content)
+    return response.content
 
-    return file_path
-# Define the path to save the model
-model_path = 'model.h5'
-# Load the tumor classification model
+# Download the model
 drive_url = "https://drive.google.com/file/d/1QY-MI1Sc7MVYiQuFHoCiaq9PD4VqS2TD/view?usp=sharing"
-download_model_from_drive(drive_url, model_path)
-# Load the model from the HDF5 file
-cnn_model = tf.keras.models.load_model(model_path)
+model_content = download_model_from_drive(drive_url)
+
+# Save the downloaded content to a temporary file
+with open('model.h5', 'wb') as f:
+    f.write(model_content)
+
+# Load the model
+cnn_model = tf.keras.models.load_model('model.h5')
 
 
 # Load your tumor classification model
