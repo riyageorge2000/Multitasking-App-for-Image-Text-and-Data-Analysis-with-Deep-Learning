@@ -6,6 +6,8 @@ from tensorflow.keras.datasets import imdb
 from tensorflow.keras.preprocessing import sequence
 from numpy import argmax
 import pickle
+from BackPropogation import  BackPropogation
+from Perceptron import  Perceptron
 
 
 
