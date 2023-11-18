@@ -113,6 +113,40 @@ def predict_digit(file_path):
 
 
 
+# Load the model from the file
+iris_perceptron_model = joblib.load('iris_perceptron_model.pkl')
+
+def predict_iris_species(input_data):
+    # Make predictions using the loaded Perceptron model
+    prediction = iris_perceptron_model.predict(input_data)
+    predicted_class = prediction[0]  # Assuming the prediction is a single class
+
+    classes = {0: 'Setosa', 1: 'Not Setosa'}  # Map prediction to class label
+    predicted_class_name = classes[predicted_class]
+
+    return predicted_class_name
+
+
+
+
+# Load the model from the file
+iris_backprop_model = joblib.load('iris_backprop_model.pkl')
+
+def predict_iris_species_backprop(input_data):
+    # Make predictions using the loaded Perceptron model
+    prediction = iris_backprop_model.predict(input_data)
+    predicted_class = prediction[0]  # Assuming the prediction is a single class
+
+    classes = {0: 'Setosa', 1: 'Not Setosa'}  # Map prediction to class label
+    predicted_class_name = classes[predicted_class]
+
+    return predicted_class_name
+
+
+
+
+
+
 
 
 # Main function for Streamlit app
@@ -198,6 +232,44 @@ def main():
                     # Call the digit prediction function
                     digit_prediction = predict_digit(digit_image)
                     st.write(f"The predicted digit is : {digit_prediction}")
+
+
+    elif task == "Iris Species Prediction-Perceptron":
+        st.subheader("Iris Species Prediction-Perceptron")
+        
+        # Input fields for user to enter data
+        sepal_length = st.number_input("Sepal Length", min_value=0.1, max_value=10.0, value=5.0)
+        sepal_width = st.number_input("Sepal Width", min_value=0.1, max_value=10.0, value=3.5)
+
+        if st.button("Predict Iris Species"):
+            # Prepare input data for prediction
+            input_row = np.array([[sepal_length, sepal_width]])
+            
+            # Get prediction results using Perceptron model
+            predicted_class_perceptron = predict_iris_species(input_row)
+
+            # Display prediction results
+            st.subheader("Prediction Results")
+            st.write('Predicted class:', predicted_class_perceptron)
+            
+            
+    elif task == "Iris Species Prediction-Backpropagation":
+        st.subheader("Iris Species Prediction-Backpropagation")
+        
+        # Input fields for user to enter data
+        sepal_length = st.number_input("Sepal Length", min_value=0.1, max_value=10.0, value=5.0)
+        sepal_width = st.number_input("Sepal Width", min_value=0.1, max_value=10.0, value=2.5)
+
+        if st.button("Predict Iris Species"):
+            # Prepare input data for prediction
+            input_row = np.array([[sepal_length, sepal_width]])
+            
+            # Get prediction results using Perceptron model
+            predicted_class = predict_iris_species_backprop(input_row)
+
+            # Display prediction results
+            st.subheader("Prediction Results")
+            st.write('Predicted class:', predicted_class)
         
                 
     
