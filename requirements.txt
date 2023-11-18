@@ -3,4 +3,4 @@ Pillow
 tensorflow
 numpy
 pickle
-tqdm==4.62.3
+
