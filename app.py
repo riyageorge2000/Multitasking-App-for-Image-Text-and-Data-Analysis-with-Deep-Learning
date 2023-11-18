@@ -9,6 +9,23 @@ import pickle
 
 
 
+import gdown
+
+# Google Drive file URL
+google_drive_url = 'https://drive.google.com/uc?id=1QY-MI1Sc7MVYiQuFHoCiaq9PD4VqS2TD'
+
+# Path where you want to save the downloaded file
+output_model_path = 'cnn_tumor_model.h5'
+
+# Download the model file
+st.write("Downloading model file...")
+gdown.download(google_drive_url, output_model_path, quiet=False)
+
+# Load the model
+cnn_model = tf.keras.models.load_model(output_model_path)
+
+
+
 # Load your tumor classification model
 #cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
 
