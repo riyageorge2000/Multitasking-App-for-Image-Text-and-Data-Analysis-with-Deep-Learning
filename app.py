@@ -10,22 +10,6 @@ import pickle
 
 
 
-import requests
-
-# Function to download the model file from the cloud storage
-def download_model():
-    file_id = "1QY-MI1Sc7MVYiQuFHoCiaq9PD4VqS2TD"
-    url = f"https://drive.google.com/uc?export=download&id={file_id}"
-    response = requests.get(url)
-    with open("cnn_tumor_model.h5", "wb") as file:
-        file.write(response.content)
-    # Load the downloaded model
-    return tf.keras.models.load_model("cnn_tumor_model.h5")
-
-# Call the download function when the app starts or when needed
-cnn_model = download_model()
-
-
 # Load your tumor classification model
 #cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
 
