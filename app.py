@@ -7,35 +7,6 @@ from tensorflow.keras.preprocessing import sequence
 from numpy import argmax
 import pickle
 
-import subprocess
-
-# Install gdown within the Streamlit app
-subprocess.call(['pip', 'install', 'gdown==4.2.0'])
-
-
-
-
-
-import streamlit as st
-from gdown import gdown
-import tensorflow as tf
-
-# Google Drive file URL
-google_drive_url = 'https://drive.google.com/uc?id=1QY-MI1Sc7MVYiQuFHoCiaq9PD4VqS2TD'
-
-# Path where you want to save the downloaded file
-output_model_path = 'cnn_tumor_model.h5'
-
-# Download the model file
-st.write("Downloading model file...")
-gdown.download(google_drive_url, output_model_path, quiet=False)
-
-# Load the model
-cnn_model = tf.keras.models.load_model(output_model_path)
-
-# Use the model in your Streamlit app
-# ... (your Streamlit code using the loaded model)
-
 
 
 # Load your tumor classification model
