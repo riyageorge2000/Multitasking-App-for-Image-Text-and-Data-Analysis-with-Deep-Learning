@@ -9,30 +9,6 @@ import pickle
 
 
 
-import requests
-from io import BytesIO
-import tempfile
-import h5py
-
-# Function to download the model from Google Drive URL
-def download_model_from_drive(drive_url):
-    file_id = drive_url.split('/')[-2]
-    download_url = f"https://drive.google.com/uc?id={file_id}"
-    response = requests.get(download_url)
-    return response.content
-
-# Download the model
-drive_url = "https://drive.google.com/file/d/1QY-MI1Sc7MVYiQuFHoCiaq9PD4VqS2TD/view?usp=sharing"
-model_content = download_model_from_drive(drive_url)
-
-# Save the downloaded content to a temporary file
-with open('model.h5', 'wb') as f:
-    f.write(model_content)
-
-# Load the model
-cnn_model = tf.keras.models.load_model('model.h5')
-
-
 # Load your tumor classification model
 #cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
 
