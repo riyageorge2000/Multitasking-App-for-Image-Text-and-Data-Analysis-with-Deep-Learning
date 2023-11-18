@@ -209,42 +209,7 @@ def main():
                     st.write(f"The predicted digit is : {digit_prediction}")
 
 
-    elif task == "Iris Species Prediction-Perceptron":
-        st.subheader("Iris Species Prediction-Perceptron")
-        
-        # Input fields for user to enter data
-        sepal_length = st.number_input("Sepal Length", min_value=0.1, max_value=10.0, value=5.0)
-        sepal_width = st.number_input("Sepal Width", min_value=0.1, max_value=10.0, value=3.5)
-
-        if st.button("Predict Iris Species"):
-            # Prepare input data for prediction
-            input_row = np.array([[sepal_length, sepal_width]])
-            
-            # Get prediction results using Perceptron model
-            predicted_class_perceptron = predict_iris_species(input_row)
-
-            # Display prediction results
-            st.subheader("Prediction Results")
-            st.write('Predicted class:', predicted_class_perceptron)
-            
-            
-    elif task == "Iris Species Prediction-Backpropagation":
-        st.subheader("Iris Species Prediction-Backpropagation")
-        
-        # Input fields for user to enter data
-        sepal_length = st.number_input("Sepal Length", min_value=0.1, max_value=10.0, value=5.0)
-        sepal_width = st.number_input("Sepal Width", min_value=0.1, max_value=10.0, value=2.5)
-
-        if st.button("Predict Iris Species"):
-            # Prepare input data for prediction
-            input_row = np.array([[sepal_length, sepal_width]])
-            
-            # Get prediction results using Perceptron model
-            predicted_class = predict_iris_species_backprop(input_row)
-
-            # Display prediction results
-            st.subheader("Prediction Results")
-            st.write('Predicted class:', predicted_class)
+    
         
                 
     
