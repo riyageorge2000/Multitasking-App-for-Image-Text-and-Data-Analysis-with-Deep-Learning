@@ -17,7 +17,7 @@ subprocess.call(['pip', 'install', 'gdown==4.2.0'])
 
 
 import streamlit as st
-import gdown
+from gdown import gdown
 import tensorflow as tf
 
 # Google Drive file URL
