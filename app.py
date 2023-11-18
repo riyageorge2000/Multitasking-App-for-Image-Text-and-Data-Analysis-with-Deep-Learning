@@ -14,7 +14,8 @@ import requests
 
 # Function to download the model file from the cloud storage
 def download_model():
-    url = "https://drive.google.com/file/d/1QY-MI1Sc7MVYiQuFHoCiaq9PD4VqS2TD/view?usp=sharing"
+    file_id = "1QY-MI1Sc7MVYiQuFHoCiaq9PD4VqS2TD"
+    url = f"https://drive.google.com/uc?export=download&id={file_id}"
     response = requests.get(url)
     with open("cnn_tumor_model.h5", "wb") as file:
         file.write(response.content)
