@@ -7,6 +7,11 @@ from tensorflow.keras.preprocessing import sequence
 from numpy import argmax
 import pickle
 
+import subprocess
+
+# Install gdown within the Streamlit app
+subprocess.call(['pip', 'install', 'gdown==4.2.0'])
+
 
 
 
