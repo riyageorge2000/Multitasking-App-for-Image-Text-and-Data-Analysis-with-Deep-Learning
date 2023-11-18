@@ -29,9 +29,9 @@ def classify_image(img, cnn_model):
     
 
 # Load your SMS spam detection model
-spam_model = tf.keras.models.load_model('Multitasking_app/spammodel.h5')
+spam_model = tf.keras.models.load_model('spammodel.h5')
 # Load the saved tokenizer
-with open('Multitasking_app/tokenizer.pickle', 'rb') as handle:
+with open('tokenizer.pickle', 'rb') as handle:
     tokeniser = pickle.load(handle)
 
 max_length=20
