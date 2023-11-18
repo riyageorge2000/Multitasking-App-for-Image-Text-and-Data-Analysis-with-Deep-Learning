@@ -147,7 +147,7 @@ def predict_iris_species_backprop(input_data):
 
 # Main function for Streamlit app
 def main():
-    st.title("Multitasking App for Image Text and Data Analysis")
+    st.title("Multitasking App for Image, Text and Data Analysis")
     st.subheader("Task Selecetion")
 
     # Dropdown for task selection
