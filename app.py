@@ -6,7 +6,6 @@ from tensorflow.keras.datasets import imdb
 from tensorflow.keras.preprocessing import sequence
 from numpy import argmax
 import pickle
-import joblib
 
 
 
@@ -114,8 +113,9 @@ def predict_digit(file_path):
 
 
 
-# Load the model from the file
-iris_perceptron_model = joblib.load('iris_perceptron_model.pkl')
+# Load the model from the file using pickle
+with open('iris_perceptron_model.pkl', 'rb') as file:
+    iris_perceptron_model = pickle.load(file)
 
 def predict_iris_species(input_data):
     # Make predictions using the loaded Perceptron model
@@ -130,8 +130,9 @@ def predict_iris_species(input_data):
 
 
 
-# Load the model from the file
-iris_backprop_model = joblib.load('iris_backprop_model.pkl')
+# Load the model from the file using pickle
+with open('iris_backprop_model.pkl', 'rb') as file:
+    iris_backprop_model = pickle.load(file)
 
 def predict_iris_species_backprop(input_data):
     # Make predictions using the loaded Perceptron model
