@@ -3,6 +3,5 @@ Pillow
 tensorflow
 numpy
 pickle
-
-
+joblib
 
