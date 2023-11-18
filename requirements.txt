@@ -3,5 +3,4 @@ Pillow
 tensorflow
 numpy
 pickle
-joblib
-
+tqdm
