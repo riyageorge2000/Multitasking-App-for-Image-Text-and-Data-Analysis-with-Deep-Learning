@@ -9,6 +9,31 @@ import pickle
 
 
 
+import requests
+from io import BytesIO
+# Function to download the model from Google Drive URL
+def download_model_from_drive(drive_url):
+    # Extract the file ID from the URL
+    file_id = drive_url.split('/')[-2]
+    
+    # Create the download URL
+    download_url = f"https://drive.google.com/uc?id={file_id}"
+    
+    # Fetch the content from the download URL
+    response = requests.get(download_url)
+    model_content = BytesIO(response.content)
+    
+    return model_content
+
+# Load the tumor classification model
+drive_url = "https://drive.google.com/file/d/1QY-MI1Sc7MVYiQuFHoCiaq9PD4VqS2TD/view?usp=sharing"
+cnn_model_content = download_model_from_drive(drive_url)
+cnn_model = tf.keras.models.load_model(cnn_model_content)
+
+
+
+
+
 
 # Load your tumor classification model
 #cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
