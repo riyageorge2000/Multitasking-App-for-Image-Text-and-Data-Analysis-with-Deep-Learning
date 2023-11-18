@@ -115,36 +115,7 @@ def predict_digit(file_path):
 
 
 
-# Load the model from the file using pickle
-with open('iris_perceptron_model.pkl', 'rb') as file:
-    iris_perceptron_model = pickle.load(file)
 
-def predict_iris_species(input_data):
-    # Make predictions using the loaded Perceptron model
-    prediction = iris_perceptron_model.predict(input_data)
-    predicted_class = prediction[0]  # Assuming the prediction is a single class
-
-    classes = {0: 'Setosa', 1: 'Not Setosa'}  # Map prediction to class label
-    predicted_class_name = classes[predicted_class]
-
-    return predicted_class_name
-
-
-
-
-# Load the model from the file using pickle
-with open('iris_backprop_model.pkl', 'rb') as file:
-    iris_backprop_model = pickle.load(file)
-
-def predict_iris_species_backprop(input_data):
-    # Make predictions using the loaded Perceptron model
-    prediction = iris_backprop_model.predict(input_data)
-    predicted_class = prediction[0]  # Assuming the prediction is a single class
-
-    classes = {0: 'Setosa', 1: 'Not Setosa'}  # Map prediction to class label
-    predicted_class_name = classes[predicted_class]
-
-    return predicted_class_name
 
 
 
