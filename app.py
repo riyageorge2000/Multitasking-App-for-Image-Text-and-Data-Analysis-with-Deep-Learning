@@ -19,6 +19,8 @@ def download_model():
     response = requests.get(url)
     with open("cnn_tumor_model.h5", "wb") as file:
         file.write(response.content)
+    # Load the downloaded model
+    return tf.keras.models.load_model("cnn_tumor_model.h5")
 
 # Call the download function when the app starts or when needed
 cnn_model = download_model()
