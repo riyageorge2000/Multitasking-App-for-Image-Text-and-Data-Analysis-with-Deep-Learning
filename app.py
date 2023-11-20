@@ -9,7 +9,7 @@ import pickle
 
 
 try:
-    cnn_model = tf.keras.models.load_model('models/cnn_tumor_model.h5')
+    cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
 except Exception as e:
     st.error(f"Error loading model: {e}")
 
