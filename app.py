@@ -14,7 +14,7 @@ import pickle
 try:
     cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
 except Exception as e:
-    st.error(f"Error loading model: {e}")
+    st.error(f"Error loading tumor model: {e}")
 
 
 # Function to perform image classification using CNN
