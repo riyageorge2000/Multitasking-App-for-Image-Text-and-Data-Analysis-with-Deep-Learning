@@ -190,10 +190,10 @@ def main():
     st.subheader("Task Selecetion")
 
     # Dropdown for task selection
-    task = st.selectbox("Select Task", ["Tumor Detection", "Digit Recognition","SMS Spam Detection-RNN","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis-LSTM","Movie Sentiment Analysis-GRU", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
+    task = st.selectbox("Select Task", ["Tumor Detection-CNN", "Digit Recognition-CNN","SMS Spam Detection-RNN","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis-LSTM","Movie Sentiment Analysis-GRU", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
 
-    if task == "Tumor Detection":
-        st.subheader("Tumor Detection")
+    if task == "Tumor Detection-CNN":
+        st.subheader("Tumor Detection-CNN")
         uploaded_file = st.file_uploader("Upload an image to check for tumor...", type=["jpg", "png", "jpeg"])
 
         if uploaded_file is not None:
@@ -277,8 +277,8 @@ def main():
             st.write('Predicted class:', predicted_class)
             
 
-    elif task == "Digit Recognition":
-        st.subheader("Digit Recognition")
+    elif task == "Digit Recognition-CNN":
+        st.subheader("Digit Recognition-CNN")
 
         uploaded_digit = st.file_uploader("Upload an image of a digit (0-9) to predict...", accept_multiple_files=True)
 
