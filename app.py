@@ -9,9 +9,13 @@ import pickle
 
 
 
-
 # Load your tumor classification model
 #cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
+try:
+    cnn_model = tf.keras.models.load_model('cnn_tumor_model.h5')
+except Exception as e:
+    st.error(f"Error loading tumor model: {e}")
+
 
 # Function to perform image classification using CNN
 def classify_image(img, cnn_model):
@@ -51,6 +55,24 @@ def predict_message(input_text, tokeniser):
             return "Not spam"
 
 
+# Load the saved model
+sms_sentiment_model=tf.keras.models.load_model('sms_sentiment_model.h5')
+maxlen=50
+# Load the saved tokenizer
+with open('tokenizer_smsglove.pickle', 'rb') as handle:
+    smstokeniser = pickle.load(handle)
+
+
+def predict_sms_sentiment(message):
+    sequence = smstokeniser.texts_to_sequences([message])
+    sequence = tf.keras.preprocessing.sequence.pad_sequences(sequence, padding='post', maxlen=maxlen)
+    prediction = sms_sentiment_model.predict(sequence)[0, 0]
+    if prediction > 0.5:
+        return 'Spam'
+    else:
+        return 'Not spam'
+
+
     
 
 # Load the saved model
@@ -66,6 +88,23 @@ def predict_sentiment(review):
     review = [word_index[word] if word in word_index and word_index[word] < top_words else 0 for word in review]
     review = sequence.pad_sequences([review], maxlen=max_review_length)
     prediction = imdb_model.predict(review)
+    if prediction > 0.5:
+        return "Positive"
+    else:
+        return "Negative"
+
+
+# Load the saved model
+gru_movie_model = tf.keras.models.load_model('gru_movie_model.h5')
+with open('tokenizer_movie_gru.pickle', 'rb') as handle:
+    lstm_movie_tokeniser = pickle.load(handle)
+maxlen = 100
+
+# Function to predict sentiment for a given review
+def gru_predict_sentiment(review):
+    sequence = lstm_movie_tokeniser.texts_to_sequences([review])
+    sequence = tf.keras.preprocessing.sequence.pad_sequences(sequence, padding='post', maxlen=maxlen)
+    prediction = gru_movie_model.predict(sequence)
     if prediction > 0.5:
         return "Positive"
     else:
@@ -151,7 +190,7 @@ def main():
     st.subheader("Task Selecetion")
 
     # Dropdown for task selection
-    task = st.selectbox("Select Task", ["Tumor Detection", "SMS Spam Detection", "IMDb Sentiment Analysis","Digit Recognition", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
+    task = st.selectbox("Select Task", ["Tumor Detection", "Digit Recognition","SMS Spam Detection-RNN","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis","Movie Sentiment Analysis-GRU", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
 
     if task == "Tumor Detection":
         st.subheader("Tumor Detection")
@@ -168,13 +207,25 @@ def main():
                 st.write("Tumor Detection Result:", result)
                 
 
-    elif task == "SMS Spam Detection":
-        st.subheader("SMS Spam Detection")
+    elif task == "SMS Spam Detection-RNN":
+        st.subheader("SMS Spam Detection-RNN")
         user_input = st.text_area("Enter a message to classify as 'Spam' or 'Not spam': ")
             
         if st.button("Predict"):
             if user_input:
                 prediction_result = predict_message(user_input, tokeniser)
+                st.write(f"The message is classified as: {prediction_result}")
+            else:
+                st.write("Please enter some text for prediction")
+
+
+    elif task == "SMS Spam Detection-LSTM":
+        st.subheader("SMS Spam Detection-LSTM")
+        user_input = st.text_area("Enter a message to classify as 'Spam' or 'Not spam': ")
+            
+        if st.button("Predict"):
+            if user_input:
+                prediction_result = predict_sms_sentiment(user_input)
                 st.write(f"The message is classified as: {prediction_result}")
             else:
                 st.write("Please enter some text for prediction")
@@ -190,6 +241,18 @@ def main():
                 st.write(f"The sentiment of the review is: {sentiment_result}")
             else:
                 st.write("Please enter a movie review for sentiment analysis")
+
+
+    elif task == "Movie Sentiment Analysis-GRU":
+        st.subheader("Movie Sentiment Analysis-GRU")
+        user_review = st.text_area("Enter a movie review: ")
+        
+        if st.button("Analyze Sentiment"):
+            if user_review:
+                sentiment_result = gru_predict_sentiment(user_review)
+                st.write(f"The sentiment of the review is: {sentiment_result}")
+            else:
+                st.write("Please enter a movie review for sentiment analysis") 
                 
                 
     elif task == "Iris Flower Classification-DNN":
