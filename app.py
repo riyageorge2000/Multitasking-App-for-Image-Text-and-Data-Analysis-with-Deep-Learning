@@ -94,6 +94,23 @@ def predict_sentiment(review):
         return "Negative"
 
 
+# Load the saved model
+gru_movie_model = tf.keras.models.load_model('gru_movie_model.h5')
+with open('tokenizer_movie_gru.pickle', 'rb') as handle:
+    lstm_movie_tokeniser = pickle.load(handle)
+maxlen = 100
+
+# Function to predict sentiment for a given review
+def gru_predict_sentiment(review):
+    sequence = lstm_movie_tokeniser.texts_to_sequences([review])
+    sequence = tf.keras.preprocessing.sequence.pad_sequences(sequence, padding='post', maxlen=maxlen)
+    prediction = gru_movie_model.predict(sequence)
+    if prediction > 0.5:
+        return "Positive"
+    else:
+        return "Negative"
+
+
 
 
 # Load the saved model
@@ -173,7 +190,7 @@ def main():
     st.subheader("Task Selecetion")
 
     # Dropdown for task selection
-    task = st.selectbox("Select Task", ["SMS Spam Detection-RNN","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis","Tumor Detection", "Digit Recognition", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
+    task = st.selectbox("Select Task", ["Tumor Detection", "Digit Recognition","SMS Spam Detection-RNN","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis","Movie Sentiment Analysis-GRU", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
 
     if task == "Tumor Detection":
         st.subheader("Tumor Detection")
@@ -224,6 +241,18 @@ def main():
                 st.write(f"The sentiment of the review is: {sentiment_result}")
             else:
                 st.write("Please enter a movie review for sentiment analysis")
+
+
+    elif task == "Movie Sentiment Analysis-GRU":
+        st.subheader("Movie Sentiment Analysis-GRU")
+        user_review = st.text_area("Enter a movie review: ")
+        
+        if st.button("Analyze Sentiment"):
+            if user_review:
+                sentiment_result = gru_predict_sentiment(user_review)
+                st.write(f"The sentiment of the review is: {sentiment_result}")
+            else:
+                st.write("Please enter a movie review for sentiment analysis") 
                 
                 
     elif task == "Iris Flower Classification-DNN":
