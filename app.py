@@ -99,10 +99,11 @@ def predict_sentiment(review):
 gru_movie_model = tf.keras.models.load_model('gru_movie_model.h5')
 with open('tokenizer_movie_gru.pickle', 'rb') as handle:
     lstm_movie_tokeniser = pickle.load(handle)
-maxlen = 100
+
 
 # Function to predict sentiment for a given review
 def gru_predict_sentiment(review):
+    maxlen = 100
     sequence = lstm_movie_tokeniser.texts_to_sequences([review])
     sequence = tf.keras.preprocessing.sequence.pad_sequences(sequence, padding='post', maxlen=maxlen)
     prediction = gru_movie_model.predict(sequence)
