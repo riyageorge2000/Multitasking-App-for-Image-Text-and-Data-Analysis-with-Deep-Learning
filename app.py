@@ -190,7 +190,7 @@ def main():
     st.subheader("Task Selecetion")
 
     # Dropdown for task selection
-    task = st.selectbox("Select Task", ["Tumor Detection", "Digit Recognition","SMS Spam Detection-RNN","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis","Movie Sentiment Analysis-GRU", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
+    task = st.selectbox("Select Task", ["Tumor Detection", "Digit Recognition","SMS Spam Detection-RNN","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis-LSTM","Movie Sentiment Analysis-GRU", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
 
     if task == "Tumor Detection":
         st.subheader("Tumor Detection")
@@ -231,8 +231,8 @@ def main():
                 st.write("Please enter some text for prediction")
 
     
-    elif task == "IMDb Sentiment Analysis":
-        st.subheader("IMDb Sentiment Analysis")
+    elif task == "IMDb Sentiment Analysis-LSTM":
+        st.subheader("IMDb Sentiment Analysis-LSTM")
         user_review = st.text_area("Enter a movie review: ")
         
         if st.button("Analyze Sentiment"):
