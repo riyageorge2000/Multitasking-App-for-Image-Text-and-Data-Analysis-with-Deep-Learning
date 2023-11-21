@@ -55,6 +55,24 @@ def predict_message(input_text, tokeniser):
             return "Not spam"
 
 
+# Load the saved model
+sms_sentiment_model=tf.keras.models.load_model('sms_sentiment_model.h5')
+maxlen=50
+# Load the saved tokenizer
+with open('tokenizer_smsglove.pickle', 'rb') as handle:
+    smstokeniser = pickle.load(handle)
+
+
+def predict_sms_sentiment(message):
+    sequence = smstokeniser.texts_to_sequences([message])
+    sequence = tf.keras.preprocessing.sequence.pad_sequences(sequence, padding='post', maxlen=maxlen)
+    prediction = sms_sentiment_model.predict(sequence)[0, 0]
+    if prediction > 0.5:
+        return 'Spam'
+    else:
+        return 'Not spam'
+
+
     
 
 # Load the saved model
@@ -155,7 +173,7 @@ def main():
     st.subheader("Task Selecetion")
 
     # Dropdown for task selection
-    task = st.selectbox("Select Task", ["SMS Spam Detection", "IMDb Sentiment Analysis","Tumor Detection", "Digit Recognition", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
+    task = st.selectbox("Select Task", ["SMS Spam Detection","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis","Tumor Detection", "Digit Recognition", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
 
     if task == "Tumor Detection":
         st.subheader("Tumor Detection")
@@ -179,6 +197,18 @@ def main():
         if st.button("Predict"):
             if user_input:
                 prediction_result = predict_message(user_input, tokeniser)
+                st.write(f"The message is classified as: {prediction_result}")
+            else:
+                st.write("Please enter some text for prediction")
+
+
+    elif task == "SMS Spam Detection-LSTM":
+        st.subheader("SMS Spam Detection-LSTM")
+        user_input = st.text_area("Enter a message to classify as 'Spam' or 'Not spam': ")
+            
+        if st.button("Predict"):
+            if user_input:
+                prediction_result = predict_sms_sentiment(user_input)
                 st.write(f"The message is classified as: {prediction_result}")
             else:
                 st.write("Please enter some text for prediction")
