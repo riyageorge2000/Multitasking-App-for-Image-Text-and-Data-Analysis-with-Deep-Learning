@@ -57,13 +57,14 @@ def predict_message(input_text, tokeniser):
 
 # Load the saved model
 sms_sentiment_model=tf.keras.models.load_model('sms_sentiment_model.h5')
-maxlen=50
+
 # Load the saved tokenizer
 with open('tokenizer_smsglove.pickle', 'rb') as handle:
     smstokeniser = pickle.load(handle)
 
 
 def predict_sms_sentiment(message):
+    maxlen=50
     sequence = smstokeniser.texts_to_sequences([message])
     sequence = tf.keras.preprocessing.sequence.pad_sequences(sequence, padding='post', maxlen=maxlen)
     prediction = sms_sentiment_model.predict(sequence)[0, 0]
