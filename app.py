@@ -173,7 +173,7 @@ def main():
     st.subheader("Task Selecetion")
 
     # Dropdown for task selection
-    task = st.selectbox("Select Task", ["SMS Spam Detection","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis","Tumor Detection", "Digit Recognition", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
+    task = st.selectbox("Select Task", ["SMS Spam Detection-RNN","SMS Spam Detection-LSTM", "IMDb Sentiment Analysis","Tumor Detection", "Digit Recognition", "Iris Flower Classification-DNN","Iris Species Prediction-Perceptron","Iris Species Prediction-Backpropagation"])
 
     if task == "Tumor Detection":
         st.subheader("Tumor Detection")
@@ -190,8 +190,8 @@ def main():
                 st.write("Tumor Detection Result:", result)
                 
 
-    elif task == "SMS Spam Detection":
-        st.subheader("SMS Spam Detection")
+    elif task == "SMS Spam Detection-RNN":
+        st.subheader("SMS Spam Detection-RNN")
         user_input = st.text_area("Enter a message to classify as 'Spam' or 'Not spam': ")
             
         if st.button("Predict"):
